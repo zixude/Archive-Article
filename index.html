@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="style.css">
+<script src="md-convert.js"></script>
+</head>
+
+
+<body>
+<div id="page">
+<div id="title">Archive Article</div>
+<pre id="catalogs-content"></pre>
+</div>
+
+</body>
+</html>
+
+
+
+<script>
+    // 获取DOM元素
+    const titleElement = document.getElementById('title');
+    const contentElement = document.getElementById('catalogs-content');
+    
+    // 加载并显示目录
+    async function loadCatalogs() {
+        try {
+            const response = await fetch('nav.json');
+            const catalogs = await response.json();
+            
+            // 创建可点击的列表
+            const catalogList = catalogs.map(item => 
+                `<div class="catalog-item" data-path="${item.path}">${item.title}</div>`
+            ).join('\n');
+            
+            contentElement.innerHTML = catalogList;
+    
+            // 为每个目录项添加点击事件
+            document.querySelectorAll('.catalog-item').forEach(item => {
+                item.addEventListener('click', async () => {
+                    const path = item.dataset.path;
+                    const title = item.textContent;
+                    
+                    // 添加历史记录
+                    history.pushState({ path, title }, title, `#${path}`);
+                    
+                    await loadContent(path, title);
+                });
+            });
+        } catch (error) {
+            contentElement.textContent = '无法加载目录';
+        }
+    }
+    
+    // 新增：处理浏览器前进/后退事件
+    window.addEventListener('popstate', async (event) => {
+        if (event.state) {
+            // 如果有状态，加载对应内容
+            await loadContent(event.state.path, event.state.title);
+        } else {
+            // 如果没有状态（回到初始页面），重新加载目录
+            titleElement.textContent = 'Catalogs';
+            loadCatalogs();
+        }
+    });
+    
+    // 新增：将内容加载逻辑抽取为独立函数
+    async function loadContent(path, title) {
+        // 更新标题
+        titleElement.textContent = title;
+        
+        // 加载并显示MD文件内容
+        try {
+            const response = await fetch(path);
+            const content = await response.text();
+            const htmlContent = convertMarkdownToHtml(content);
+            contentElement.innerHTML = htmlContent;
+        } catch (error) {
+            contentElement.textContent = '无法加载文档内容';
+        }
+    }
+    
+    // 页面加载时执行
+    loadCatalogs();
+    </script>

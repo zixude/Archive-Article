@@ -1,0 +1,112 @@
+/* 桌面端样式 */
+@media (min-width: 751px) {
+
+/* 设置 body 为 flex 容器 */
+body {
+    font-size: 17px;
+    line-height: 1.8;
+    font-family: Georgia;
+    display: flex;
+    flex-direction: column; /* 添加此行使flex项目垂直排列 */
+    padding: 200px 50px 100px 100px;
+    /* 添加线性渐变背景 */
+    background: linear-gradient(to bottom, #ffffff, #e3e3e3);
+    /* 设置渐变的最小高度为100vh，确保即使内容较少时也能充满整个视口 */
+    min-height: 100vh;
+}
+
+
+#page{
+    width: 700px;
+}
+
+#title{
+    font-weight: bold;
+    font-size: 20px;
+    color: burlywood;
+    margin-bottom: 40px;
+}
+
+pre{
+    font-family: Georgia;
+    white-space: pre-wrap;
+    line-height: 1.4;
+    color: rgb(56, 56, 56);
+}
+
+/* 用于控制pre内的图片的样式效果 */
+pre img {
+    max-width: 100%;
+}
+
+
+
+.catalog-item {
+    cursor: pointer;
+    color: rgb(81, 81, 81);
+    margin-bottom: -20px;
+}
+
+.catalog-item:hover {
+    /* text-decoration: underline; */
+    color: black;
+    font-weight: bold;
+}
+
+
+}
+
+
+/* 手机端样式 */
+@media (max-width: 750px) {
+
+/* 设置 body 为 flex 容器 */
+body {
+    line-height: 1.8;
+    font-family: 'PingFang SC', sans-serif;
+    display: flex;
+    flex-direction: column; /* 添加此行使flex项目垂直排列 */
+    padding: 200px 20px 20px 20px;
+    /* 添加线性渐变背景 */
+    background: linear-gradient(to bottom, #ffffff, #e3e3e3);
+    /* 设置渐变的最小高度为100vh，确保即使内容较少时也能充满整个视口 */
+    min-height: 100vh;
+}
+
+
+#page{
+    width: 700px;
+}
+
+#title{
+    font-weight: bold;
+    color: burlywood;
+    margin-bottom: 40px;
+}
+
+pre{
+    font-family: Georgia;
+    white-space: pre-wrap;
+    line-height: 1.4;
+    color: rgb(56, 56, 56);
+}
+
+/* 用于控制pre内的图片的样式效果 */
+pre img {
+    max-width: 100%;
+}
+
+
+
+.catalog-item {
+    cursor: pointer;
+    color: rgb(81, 81, 81);
+    margin-bottom: -20px;
+}
+
+.catalog-item:hover {
+    /* text-decoration: underline; */
+    color: black;
+    font-weight: bold;
+}
+}

@@ -1,0 +1,17 @@
+name: Generate Nav JSON
+
+on:
+  push:
+    branches:
+      - main  # 可根据你的实际分支名称进行调整
+
+jobs:
+  generate_nav:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Generate nav.json
+      run: python generate_nav.py
